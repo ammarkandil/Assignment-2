@@ -1,0 +1,103 @@
+#include "Person.hpp"
+#include "Customer.hpp"
+#include <iostream>
+#include "Appo.hpp"
+using namespace std;
+
+//setters and getters for patient name
+void Customer::setname(string x)
+{
+        Name=x;
+}
+string Customer::getname(){
+    return Name;
+}
+void Customer::setid(string x){
+    Id=x;
+}
+string Customer::getid(){
+    return Id;
+}
+void Customer::setage(int x)
+{
+    age=x;
+}
+int Customer::getage(){
+    return age;
+}
+
+
+void Customer::setmechanicd(string x){
+    Doctorid=x;
+}
+string Customer::getmechaincid(){
+    return Doctorid;
+}
+
+//default constructor
+Customer::Customer(){
+    
+}
+//constructor that takes name id age and hours and mins and docid and then puts them in person
+Customer::Customer(string n, string idn, int agen, int hourz, int minz, string mechid) : Person(n, idn, agen)
+{
+    appointment.hours = hourz;
+    appointment.mins = minz;
+    Mechanicid = mechid;
+}
+//sets the appintment by taking the hours and mins and adding it to the struct of type appointment
+    void Customer::setappointment(int h,int m){
+        appointment.hours=h;
+        appointment.mins=m;
+    }
+//gets appointment which is a struct
+    Appointment Customer::getappointment(){
+        return appointment;
+    }
+//overloaded < where it compares the hours of both patients if p2 is bigger then it returns true and then it compares the min if they both have same hour
+bool Customer::operator<(Customer &p2){
+   
+    if(appointment.hours<p2.appointment.hours){
+        return true;
+    }
+    else if(appointment.hours>p2.appointment.hours){
+        return false;
+    }
+    else{
+        if(appointment.mins<p2.appointment.mins){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+}
+//overloaded > where it compares the hours of both patients if p2 is smaller then it returns true and then it compares the min if they both have same hour
+bool Customer::operator>(Customer &p2){
+    if(appointment.hours>p2.appointment.hours){
+        return true;
+    }
+    else if(appointment.hours<p2.appointment.hours){
+        return false;
+    }
+    else{
+        if(appointment.mins>p2.appointment.mins){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+}
+//compares both patients both mins and hours if all are equal then return true
+bool Customer::operator==(Customer &p2){
+    if(appointment.hours==p2.appointment.hours){
+        if(appointment.mins==p2.appointment.mins){
+            return true;
+        }
+    }
+    else{
+        return false;
+    }
+    return false;
+}
